@@ -25,17 +25,17 @@ void inputTitik(kordinat& ttk){
 }
 
 void cetakTitik(kordinat ttk){
-    cout << "(" << ttk.xAxis << "," << ttk.yAxis << ")\n";
+    cout << ttk.nama << "(" << ttk.xAxis << "," << ttk.yAxis << ")\n";
 }
 
 void inputSegitiga(segitiga s3){
-    for(int i = 0; i<sizeof(s3); i++){
+    for(int i = 0; i<3; i++){
         inputTitik(s3[i]);
     }
 }
 
 void cetakSegitiga(segitiga s3){
-    for(int i = 0; i<sizeof(s3);i++){
+    for(int i = 0; i<3;i++){
         cetakTitik(s3[i]);
     }
 }

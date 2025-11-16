@@ -1,0 +1,70 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <map>       // <- penting
+#include <string>
+using namespace std;
+
+// Struktur transaksi hadiah (definisi lengkap di sini)
+struct Transaction {
+    string giver;
+    int amount;
+    int count;
+    vector<string> receivers;
+};
+
+/* --------------------------------------------------------
+   Membaca input dari file teks
+   -------------------------------------------------------- */
+void bacaInput(
+    const string& namaFile,
+    vector<string>& daftarNama,
+    vector<Transaction>& daftarTransaksi
+) {
+    ifstream fin(namaFile);
+    if (!fin) {
+        cout << "Gagal membuka file input: " << namaFile << endl;
+        exit(1);
+    }
+
+    int N;
+    fin >> N;
+
+    daftarNama.resize(N);
+    for (int i = 0; i < N; i++) {
+        fin >> daftarNama[i];
+    }
+
+    daftarTransaksi.resize(N);
+
+    for (int i = 0; i < N; i++) {
+        Transaction t;
+        fin >> t.giver >> t.amount >> t.count;
+
+        t.receivers.resize(t.count);
+        for (int j = 0; j < t.count; j++) {
+            fin >> t.receivers[j];
+        }
+
+        daftarTransaksi[i] = t;
+    }
+}
+
+/* --------------------------------------------------------
+   Menulis output ke file teks
+   -------------------------------------------------------- */
+void simpanOutput(
+    const string& namaFile,
+    const vector<string>& daftarNama,
+    const map<string,int>& saldo
+) {
+    ofstream fout(namaFile);
+    if (!fout) {
+        cout << "Gagal membuka file output: " << namaFile << endl;
+        exit(1);
+    }
+
+    for (const auto& nama : daftarNama) {
+        fout << nama << " " << saldo.at(nama) << endl;
+    }
+}
